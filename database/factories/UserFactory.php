@@ -10,7 +10,7 @@ class UserFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
-     * 
+     *
      * @var string
      */
     protected $model = User::class;
@@ -38,4 +38,9 @@ class UserFactory extends Factory
             'admin' => true
         ]);
     }
+
+//    User::factory()->hasPosts(5)->create()
+//    Post::factory()->for(User::factory())->count(3)->create()
+//    Post::factory()->forUser()->count(3)->create()
+
 }
