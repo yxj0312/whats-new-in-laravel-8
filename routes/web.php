@@ -15,7 +15,7 @@ use App\Events\GiftCertificatePurchased;
 */
 
 Route::get('/', function () {
-    event(new GiftCertificatePurchased());
+//    event(new GiftCertificatePurchased());
 
     return view('welcome');
 });
