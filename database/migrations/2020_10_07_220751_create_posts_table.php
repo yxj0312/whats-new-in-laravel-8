@@ -17,6 +17,7 @@ class CreatePostsTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->string('title');
+            $table->dateTime('published_at')->nullable();
             $table->timestamps();
         });
     }

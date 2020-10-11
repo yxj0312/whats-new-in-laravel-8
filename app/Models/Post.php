@@ -9,6 +9,10 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'published_at' => 'date'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -16,6 +20,14 @@ class Post extends Model
 
     public function isScheduled()
     {
-        return false;
+        if ($this->isDraft()) {
+            return false;
+        }
+        return $this->published_at->gt(now());
+    }
+
+    public function isDraft()
+    {
+        return is_null($this->published_at);
     }
 }
