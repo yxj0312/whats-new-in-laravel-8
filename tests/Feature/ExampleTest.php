@@ -20,5 +20,11 @@ class ExampleTest extends TestCase
 
         $post->published_at = now()->addWeek();
         $this->assertTrue($post->isScheduled());
+
+        // Wormhole class used behind the scene
+        $this->travel(8)->days();
+        // $this->travel(-1)->month();
+        // $this->travelBack();
+        $this->assertFalse($post->isScheduled());
     }
 }
