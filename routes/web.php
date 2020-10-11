@@ -19,3 +19,7 @@ Route::get('/', function () {
 
     return view('welcome');
 });
+
+Route::get('/downloads', function() {
+    return 'some File::download() call';
+})->middleware('throttle:downloads');
