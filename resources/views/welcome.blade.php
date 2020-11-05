@@ -130,6 +130,7 @@
 
                 </div>
                 <example-component foo="bar"></example-component>
+                <another-component foo="bar"></another-component>
             </div>
         </div>
     </body>
