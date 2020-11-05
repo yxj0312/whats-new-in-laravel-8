@@ -129,7 +129,7 @@
                     </div>
 
                 </div>
-                <example-component></example-component>
+                <example-component foo="bar"></example-component>
             </div>
         </div>
     </body>

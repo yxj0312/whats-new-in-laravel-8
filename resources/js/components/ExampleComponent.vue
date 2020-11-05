@@ -8,6 +8,9 @@
                     <div class="card-body">
                         I'm an example component. {{ greeting }}
                     </div>
+                    <div>
+                        Foo: {{ foo }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -17,6 +20,7 @@
 <script>
     import {ref} from "vue"
     export default {
+        props: ['foo'],
         setup() {
             const greeting = ref('hello there')
 
