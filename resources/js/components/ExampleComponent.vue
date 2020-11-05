@@ -6,7 +6,7 @@
                     <div class="card-header">Example Component</div>
 
                     <div class="card-body">
-                        I'm an example component.
+                        I'm an example component. {{ greeting }}
                     </div>
                 </div>
             </div>
@@ -15,9 +15,14 @@
 </template>
 
 <script>
+    import {ref} from "vue"
     export default {
-        mounted() {
-            console.log('Component mounted.')
+        setup() {
+            const greeting = ref('hello there')
+
+            return {
+                greeting
+            }
         }
     }
 </script>
