@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Events\GiftCertificatePurchased;
+use App\Jobs\SendWelcomeEmail;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,7 @@ use App\Events\GiftCertificatePurchased;
 
 Route::get('/', function () {
 //    event(new GiftCertificatePurchased());
-
+    (new SendWelcomeEmail())->handle();
     return view('welcome');
 });
 
