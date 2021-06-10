@@ -17,7 +17,8 @@ use App\Jobs\SendWelcomeEmail;
 
 Route::get('/', function () {
 //    event(new GiftCertificatePurchased());
-    (new SendWelcomeEmail())->handle();
+    SendWelcomeEmail::dispatch();
+    
     return view('welcome');
 });
 
