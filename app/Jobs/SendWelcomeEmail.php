@@ -14,8 +14,8 @@ class SendWelcomeEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $tries = 1;
-    public $backoff = 2;
+    // public $tries = -1;
+    // public $backoff = 2;
 
     /**
      * Create a new job instance.
@@ -34,15 +34,15 @@ class SendWelcomeEmail implements ShouldQueue
      */
     public function handle()
     {
-        throw new Exception('Failed!');
+        // throw new Exception('Failed!');
 
         sleep(3);
 
         info('Hello!');
     }
 
-    public function retryUntil()
-    {
-        return now()->addMinute();
-    }
+    // public function retryUntil()
+    // {
+    //     return now()->addMinute();
+    // }
 }
