@@ -23,7 +23,7 @@ Route::get('/', function () {
        SendWelcomeEmail::dispatch();
     }
     
-    ProcessPayment::dispatch();
+    ProcessPayment::dispatch()->onQueue('payments');
     
     return view('welcome');
 });
