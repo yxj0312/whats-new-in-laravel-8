@@ -34,9 +34,14 @@ class SendWelcomeEmail implements ShouldQueue
     public function handle()
     {
         throw new Exception('Failed!');
-        
+
         sleep(3);
 
         info('Hello!');
+    }
+
+    public function retryUntil()
+    {
+        return now()->addMinute();
     }
 }
