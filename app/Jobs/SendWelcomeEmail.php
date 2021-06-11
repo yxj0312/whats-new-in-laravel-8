@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -13,7 +14,7 @@ class SendWelcomeEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $timeout = 1;
+    public $tries = 3;
 
     /**
      * Create a new job instance.
@@ -32,6 +33,8 @@ class SendWelcomeEmail implements ShouldQueue
      */
     public function handle()
     {
+        throw new Exception('Failed!');
+        
         sleep(3);
 
         info('Hello!');
