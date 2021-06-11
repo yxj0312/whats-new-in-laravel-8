@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Events\GiftCertificatePurchased;
+use App\Jobs\ProcessPayment;
 use App\Jobs\SendWelcomeEmail;
 
 /*
@@ -22,6 +23,7 @@ Route::get('/', function () {
        SendWelcomeEmail::dispatch();
     }
     
+    ProcessPayment::dispatch();
     
     return view('welcome');
 });
