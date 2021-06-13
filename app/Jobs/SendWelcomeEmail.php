@@ -19,6 +19,8 @@ class SendWelcomeEmail implements ShouldQueue
     // 2 sec after the first attempt, and 3 sec after 2nd attempt and up til 10.
     // public $backoff = [2,10];
 
+    public $maxExceptions = 2;
+
     /**
      * Create a new job instance.
      *
