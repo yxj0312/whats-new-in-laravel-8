@@ -15,7 +15,9 @@ class SendWelcomeEmail implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     // public $tries = -1;
-    // public $backoff = 2;
+    
+    // 2 sec after the first attempt, and 3 sec after 2nd attempt and up til 10.
+    // public $backoff = [2,10];
 
     /**
      * Create a new job instance.
