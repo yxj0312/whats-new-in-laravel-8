@@ -19,11 +19,13 @@ use App\Jobs\SendWelcomeEmail;
 Route::get('/', function () {
 //    event(new GiftCertificatePurchased());
 
-    foreach (range(1, 100) as $i) {
-       SendWelcomeEmail::dispatch();
-    }
+    SendWelcomeEmail::dispatch();
+
+    // foreach (range(1, 100) as $i) {
+    //    SendWelcomeEmail::dispatch();
+    // }
     
-    ProcessPayment::dispatch()->onQueue('payments');
+    // ProcessPayment::dispatch()->onQueue('payments');
     
     return view('welcome');
 });

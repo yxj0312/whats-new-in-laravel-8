@@ -38,7 +38,7 @@ class SendWelcomeEmail implements ShouldQueue
      */
     public function handle()
     {
-        // throw new Exception('Failed!');
+        throw new Exception('Failed!');
 
         sleep(1);
 
