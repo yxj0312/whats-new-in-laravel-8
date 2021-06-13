@@ -14,8 +14,8 @@ class SendWelcomeEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    // public $tries = -1;
-    
+    public $tries = 3;
+
     // 2 sec after the first attempt, and 3 sec after 2nd attempt and up til 10.
     // public $backoff = [2,10];
 
@@ -38,9 +38,11 @@ class SendWelcomeEmail implements ShouldQueue
     {
         // throw new Exception('Failed!');
 
-        sleep(3);
+        sleep(1);
 
-        info('Hello!');
+        return $this->release(2);
+
+        // info('Hello!');
     }
 
     // public function retryUntil()
