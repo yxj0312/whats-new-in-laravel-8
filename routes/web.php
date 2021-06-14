@@ -28,13 +28,18 @@ Route::get('/', function () {
     
     // ProcessPayment::dispatch()->onQueue('payments');
 
-    $chain = [
-        new App\Jobs\PullRepo(),
-        new App\Jobs\RunTests(),
-        new App\Jobs\Deploy()
+    // $chain = [
+    //     new App\Jobs\PullRepo(),
+    //     new App\Jobs\RunTests(),
+    //     new App\Jobs\Deploy()
+    // ];
+    $batch = [
+        new App\Jobs\PullRepo('laracasts/project1'),
+        new App\Jobs\PullRepo('laracasts/project2'),
+        new App\Jobs\PullRepo('laracasts/project3'),
     ];
 
-    Bus::chain($chain)->dispatch();
+    Bus::batch($batch)->dispatch();
     
     return view('welcome');
 });
