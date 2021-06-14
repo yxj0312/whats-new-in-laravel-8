@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Events\GiftCertificatePurchased;
 use App\Jobs\ProcessPayment;
 use App\Jobs\SendWelcomeEmail;
+use Illuminate\Support\Facades\Bus;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,8 @@ Route::get('/', function () {
         new App\Jobs\RunTests(),
         new App\Jobs\Deploy()
     ];
+
+    Bus::chain($chain)->dispatch();
     
     return view('welcome');
 });
