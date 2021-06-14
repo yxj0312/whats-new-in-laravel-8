@@ -41,7 +41,9 @@ Route::get('/', function () {
         new App\Jobs\PullRepo('laracasts/project3'),
     ];
 
-    Bus::batch($batch)->dispatch();
+    Bus::batch($batch)
+    ->allowFailures()
+    ->dispatch();
     
     return view('welcome');
 });
