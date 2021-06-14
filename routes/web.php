@@ -19,13 +19,19 @@ use App\Jobs\SendWelcomeEmail;
 Route::get('/', function () {
 //    event(new GiftCertificatePurchased());
 
-    SendWelcomeEmail::dispatch();
+    // SendWelcomeEmail::dispatch();
 
     // foreach (range(1, 100) as $i) {
     //    SendWelcomeEmail::dispatch();
     // }
     
     // ProcessPayment::dispatch()->onQueue('payments');
+
+    $chain = [
+        new App\Jobs\PullRepo(),
+        new App\Jobs\RunTests(),
+        new App\Jobs\Deploy()
+    ];
     
     return view('welcome');
 });
