@@ -30,6 +30,8 @@ class PullRepo implements ShouldQueue
      */
     public function handle()
     {
-        //
+        if ($this->batch()->canceled()) {
+            return;
+        }
     }
 }
