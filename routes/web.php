@@ -33,6 +33,8 @@ Route::get('/', function () {
     //     new App\Jobs\RunTests(),
     //     new App\Jobs\Deploy()
     // ];
+
+    // php artisan queue:batches-table
     $batch = [
         new App\Jobs\PullRepo('laracasts/project1'),
         new App\Jobs\PullRepo('laracasts/project2'),
