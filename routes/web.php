@@ -43,6 +43,17 @@ Route::get('/', function () {
 
     Bus::batch($batch)
     ->allowFailures()
+    ->catch(function ($batch, $e) {
+        //
+    })
+    ->then(function ($batch){
+
+    })
+    ->finally(function($batch) {
+
+    })
+    ->onQueue('deployments')
+    ->onConnection('database')
     ->dispatch();
     
     return view('welcome');
