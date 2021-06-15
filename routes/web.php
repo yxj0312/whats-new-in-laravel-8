@@ -35,12 +35,21 @@ Route::get('/', function () {
     // ];
 
     // php artisan queue:batches-table
-    $batch = [
-        new App\Jobs\PullRepo('laracasts/project1'),
-        new App\Jobs\PullRepo('laracasts/project2'),
-        new App\Jobs\PullRepo('laracasts/project3'),
-    ];
+    // $batch = [
+    //     new App\Jobs\PullRepo('laracasts/project1'),
+    //     new App\Jobs\PullRepo('laracasts/project2'),
+    //     new App\Jobs\PullRepo('laracasts/project3'),
+    // ];
 
+
+    $batch = [
+        [
+            new App\Jobs\PullRepo('laracasts/project1'),
+            new App\Jobs\RunTests('laracasts/project1'),
+            new App\Jobs\Deploy('laracasts/project1'),
+        ]
+
+    ];
     Bus::batch($batch)
     ->allowFailures()
     ->catch(function ($batch, $e) {
