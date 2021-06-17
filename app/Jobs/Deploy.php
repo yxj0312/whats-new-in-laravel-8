@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Cache;
 
 class Deploy implements ShouldQueue
 {
@@ -29,10 +30,15 @@ class Deploy implements ShouldQueue
      */
     public function handle()
     {
-        info('Started Deploying...');
+        // 10 times to throw exception
+        // with this: two works will not start at same time, start after other finished
+        Cache::lock('deployment')->block(10,function(){
+            info('Started Deploying...');
 
-        sleep(5);
+            sleep(5);
 
-        info('Finished Deploying!');
+            info('Finished Deploying!');
+        });
+        
     }
 }
