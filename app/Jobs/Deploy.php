@@ -29,6 +29,10 @@ class Deploy implements ShouldQueue
      */
     public function handle()
     {
-        //
+        info('Started Deploying...');
+
+        sleep(5);
+
+        info('Finished Deploying!');
     }
 }
