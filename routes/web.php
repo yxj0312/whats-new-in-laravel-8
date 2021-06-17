@@ -47,6 +47,12 @@ Route::get('/', function () {
             new App\Jobs\PullRepo('laracasts/project1'),
             new App\Jobs\RunTests('laracasts/project1'),
             new App\Jobs\Deploy('laracasts/project1'),
+        ],
+
+        [
+            new App\Jobs\PullRepo('laracasts/project2'),
+            new App\Jobs\RunTests('laracasts/project2'),
+            new App\Jobs\Deploy('laracasts/project2'),
         ]
 
     ];
