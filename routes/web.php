@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Events\GiftCertificatePurchased;
+use App\Jobs\Deploy;
 use App\Jobs\ProcessPayment;
 use App\Jobs\SendWelcomeEmail;
 use Illuminate\Support\Facades\Bus;
@@ -42,35 +43,43 @@ Route::get('/', function () {
     // ];
 
 
-    $batch = [
-        [
-            new App\Jobs\PullRepo('laracasts/project1'),
-            new App\Jobs\RunTests('laracasts/project1'),
-            new App\Jobs\Deploy('laracasts/project1'),
-        ],
+    // $batch = [
+    //     [
+    //         new App\Jobs\PullRepo('laracasts/project1'),
+    //         new App\Jobs\RunTests('laracasts/project1'),
+    //         new App\Jobs\Deploy('laracasts/project1'),
+    //     ],
 
-        [
-            new App\Jobs\PullRepo('laracasts/project2'),
-            new App\Jobs\RunTests('laracasts/project2'),
-            new App\Jobs\Deploy('laracasts/project2'),
-        ]
+    //     [
+    //         new App\Jobs\PullRepo('laracasts/project2'),
+    //         new App\Jobs\RunTests('laracasts/project2'),
+    //         new App\Jobs\Deploy('laracasts/project2'),
+    //     ]
 
-    ];
-    Bus::batch($batch)
-    ->allowFailures()
-    ->catch(function ($batch, $e) {
-        //
-    })
-    ->then(function ($batch){
+    // ];
+    // Bus::batch($batch)
+    // ->allowFailures()
+    // ->catch(function ($batch, $e) {
+    //     //
+    // })
+    // ->then(function ($batch){
 
-    })
-    ->finally(function($batch) {
+    // })
+    // ->finally(function($batch) {
 
-    })
-    ->onQueue('deployments')
-    ->onConnection('database')
-    ->dispatch();
+    // })
+    // ->onQueue('deployments')
+    // ->onConnection('database')
+    // ->dispatch();
     
+
+    Bus::chain([
+        new Deploy(),
+        function () {
+            Bus::batch([...])->dispatch();
+        }
+    ])->dispatch();
+
     return view('welcome');
 });
 
