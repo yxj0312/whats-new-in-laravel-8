@@ -8,6 +8,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redis;
 
 class Deploy implements ShouldQueue
 {
@@ -30,15 +31,26 @@ class Deploy implements ShouldQueue
      */
     public function handle()
     {
+        Redis::funnel('deployment')
+            ->limit(5)
+            ->block(10)
+            ->then(function() {
+                info('Started Deploying...');
+
+                sleep(5);
+
+                info('Finished Deploying!');
+            });
+
         // 10 times to throw exception
         // with this: two works will not start at same time, start after other finished
-        Cache::lock('deployment')->block(10,function(){
-            info('Started Deploying...');
+        // Cache::lock('deployment')->block(10,function(){
+        //     info('Started Deploying...');
 
-            sleep(5);
+        //     sleep(5);
 
-            info('Finished Deploying!');
-        });
+        //     info('Finished Deploying!');
+        // });
         
     }
 }
