@@ -1,11 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Events\GiftCertificatePurchased;
-use App\Jobs\Deploy;
-use App\Jobs\ProcessPayment;
-use App\Jobs\SendWelcomeEmail;
-use Illuminate\Support\Facades\Bus;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,70 +14,11 @@ use Illuminate\Support\Facades\Bus;
 */
 
 Route::get('/', function () {
-//    event(new GiftCertificatePurchased());
-
-    // SendWelcomeEmail::dispatch();
-
-    // foreach (range(1, 100) as $i) {
-    //    SendWelcomeEmail::dispatch();
-    // }
-    
-    // ProcessPayment::dispatch()->onQueue('payments');
-
-    // $chain = [
-    //     new App\Jobs\PullRepo(),
-    //     new App\Jobs\RunTests(),
-    //     new App\Jobs\Deploy()
-    // ];
-
-    // php artisan queue:batches-table
-    // $batch = [
-    //     new App\Jobs\PullRepo('laracasts/project1'),
-    //     new App\Jobs\PullRepo('laracasts/project2'),
-    //     new App\Jobs\PullRepo('laracasts/project3'),
-    // ];
-
-
-    // $batch = [
-    //     [
-    //         new App\Jobs\PullRepo('laracasts/project1'),
-    //         new App\Jobs\RunTests('laracasts/project1'),
-    //         new App\Jobs\Deploy('laracasts/project1'),
-    //     ],
-
-    //     [
-    //         new App\Jobs\PullRepo('laracasts/project2'),
-    //         new App\Jobs\RunTests('laracasts/project2'),
-    //         new App\Jobs\Deploy('laracasts/project2'),
-    //     ]
-
-    // ];
-    // Bus::batch($batch)
-    // ->allowFailures()
-    // ->catch(function ($batch, $e) {
-    //     //
-    // })
-    // ->then(function ($batch){
-
-    // })
-    // ->finally(function($batch) {
-
-    // })
-    // ->onQueue('deployments')
-    // ->onConnection('database')
-    // ->dispatch();
-    
-
-    // Bus::chain([
-    //     new Deploy(),
-    //     function () {
-    //         Bus::batch([...])->dispatch();
-    //     }
-    // ])->dispatch();
-
     return view('welcome');
 });
 
-Route::get('/downloads', function() {
-    return 'some File::download() call';
-})->middleware('throttle:downloads');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
