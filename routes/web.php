@@ -73,12 +73,12 @@ Route::get('/', function () {
     // ->dispatch();
     
 
-    Bus::chain([
-        new Deploy(),
-        function () {
-            Bus::batch([...])->dispatch();
-        }
-    ])->dispatch();
+    // Bus::chain([
+    //     new Deploy(),
+    //     function () {
+    //         Bus::batch([...])->dispatch();
+    //     }
+    // ])->dispatch();
 
     return view('welcome');
 });
