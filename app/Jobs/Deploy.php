@@ -31,8 +31,10 @@ class Deploy implements ShouldQueue
      */
     public function handle()
     {
-        Redis::funnel('deployment')
-            ->limit(5)
+        // only allow 10 deployment each 60 sec
+        Redis::throttle('deployment')
+            ->allow(10)
+            ->every(60)
             ->block(10)
             ->then(function() {
                 info('Started Deploying...');
