@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redis;
@@ -34,17 +35,17 @@ class Deploy implements ShouldQueue
         // Redis::tunnel('deployment')
         //     ->limit(5)
         // only allow 10 deployment each 60 sec
-        Redis::throttle('deployment')
-            ->allow(10)
-            ->every(60)
-            ->block(10)
-            ->then(function() {
-                info('Started Deploying...');
+        // Redis::throttle('deployment')
+        //     ->allow(10)
+        //     ->every(60)
+        //     ->block(10)
+        //     ->then(function() {
+        //         info('Started Deploying...');
 
-                sleep(5);
+        //         sleep(5);
 
-                info('Finished Deploying!');
-            });
+        //         info('Finished Deploying!');
+        //     });
 
         // 10 times to throw exception
         // with this: two works will not start at same time, start after other finished
@@ -55,6 +56,21 @@ class Deploy implements ShouldQueue
 
         //     info('Finished Deploying!');
         // });
+
+
+        info('Started Deploying...');
+
+        sleep(5);
+
+        info('Finished Deploying!');
         
+    }
+
+    public function middleware()
+    {
+        // prevent running this job if another same job is in progress
+        return [
+            new WithoutOverlapping('deployments')
+        ];
     }
 }
