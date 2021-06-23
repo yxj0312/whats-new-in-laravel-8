@@ -72,7 +72,9 @@ class Deploy implements ShouldQueue
         // the middleware will release the job back to the queue, it won't block like we have seen Redis limit and Cache lock
         // and it won't throw an exception
         return [
-            new WithoutOverlapping('deployments')
+            // sec argument for release delay, here is 10 sec
+            // now when it releases the job, it is going to be delay 10sec before a worker can attempt it again.
+            new WithoutOverlapping('deployments', 10)
         ];
     }
 }
