@@ -69,6 +69,8 @@ class Deploy implements ShouldQueue
     public function middleware()
     {
         // prevent running this job if another same job is in progress
+        // the middleware will release the job back to the queue, it won't block like we have seen Redis limit and Cache lock
+        // and it won't throw an exception
         return [
             new WithoutOverlapping('deployments')
         ];
